@@ -125,7 +125,172 @@ var allQuestions = {
 		        "answer-exp": "Answer is 'Dragons'. Daenerys, who feels she has a rightful claim to the Iron Throne, is given three dragon eggs as a wedding gift.  When her husband Kahl Drago dies, she puts his body on a funeral pyre.  Daenerys, who has the supernatural ability to withstand heat, walks into the fire with the eggs and uses the heat to hatch them.  These dragons are the first to come into the world in over a century."
 		},
 };
+var newGame = function() {
+    num = 0;
+    count = 0;
+    score = 0;
+    privious_questions = [];
+};
+var findQuestion = function() {
+    selectQuestion();
+    while (wasAsked()) {
+        selectQuestion();
+    }
+};
+var selectQuestion = function() {
+    var limit = Object.keys(allQuestions).length;
+    num = Math.floor((Math.random() * limit) + 1)
+};
+var wasAsked = function() {
+    var result = false;
+    for (var i=0;i<=privious_questions.length;i++){
+        if (num == privious_questions[i]) {
+            result = true;
+        }
+    }
+    return result;
+};
+var loadQuestion = function() {
+	countdownTimer.start();
+	console.log(num);
+    privious_questions.push(num);    
+    $('#text').html(allQuestions[num]["question"]);
+    $('#option-1').html(allQuestions[num]["options"][1]);
+    $('#option-2').html(allQuestions[num]["options"][2]);
+    $('#option-3').html(allQuestions[num]["options"][3]);
+    $('#option-4').html(allQuestions[num]["options"][4]);
+    updateScore();
+    count++;
+    $('.progress').text(count+"/"+count_limit);
+};
+var correct = function(user_answer) {
+    if (user_answer == allQuestions[num]["answer"]) {
+        return true;
+    } else {
+        return false;
+    }
+};
+var updateScore = function() {
+    $('.score').text(score);
+    // countdownTimer.stop();
+	// $('.timer').empty();
+};
+var updateRank = function() {
+    if (score == 10){
+        $('.rank').text('Game Of Thrones Master');
+        $('.rank-msg').text('Prefect score!)');
+    } else if (score >= 7 && score <=  9) {
+        $('.rank').text('GOT Expert');
+        $('.rank-msg').text('You have mad Game of Thrones trivia skillz!');
+    } else if (score >= 4 && score <= 6) {
+        $('.rank').text('GOT Beginer');
+        $('.rank-msg').text('You may not be the best, but your not the worst.');
+    } else if (score >= 1 && score <= 3) {
+        $('.rank').text('GOT Novice');
+        $('.rank-msg').text('Meh. Not a great score, but if you start watching GOT more passionatly you will improve!');
+    } else if (score == 0) {
+        $('.rank').text('GOT Dunce');
+        $('.rank-msg').text('Doh! The only "Game Of thrones" you apparently have no Idea about GOT, No hopes for improvement!');
+    }
+};
 
+var newGame = function() {
+    num = 0;
+    count = 0;
+    score = 0;
+    privious_questions = [];
+};
+var findQuestion = function() {
+    selectQuestion();
+    while (wasAsked()) {
+        selectQuestion();
+    }
+};
+var selectQuestion = function() {
+    var limit = Object.keys(allQuestions).length;
+    num = Math.floor((Math.random() * limit) + 1)
+};
+var wasAsked = function() {
+    var result = false;
+    for (var i=0;i<=privious_questions.length;i++){
+        if (num == privious_questions[i]) {
+            result = true;
+        }
+    }
+    return result;
+};
+var loadQuestion = function() {
+    privious_questions.push(num);    
+    countdownTimer.reset();
+    $('#text').html(allQuestions[num]["question"]);
+    $('#option-1').html(allQuestions[num]["options"][1]);
+    $('#option-2').html(allQuestions[num]["options"][2]);
+    $('#option-3').html(allQuestions[num]["options"][3]);
+    $('#option-4').html(allQuestions[num]["options"][4]);
+    updateScore();
+    count++;
+    $('.progress').text(count+"/"+count_limit);
+};
+var correct = function(user_answer) {
+    if (user_answer == allQuestions[num]["answer"]) {
+        return true;
+    } else {
+        return false;
+    }
+};
+
+
+
+//Background theme
+
+function sound(src) {
+    this.sound = document.createElement("audio");
+    this.sound.src = src;
+    this.sound.setAttribute("preload", "auto");
+    this.sound.setAttribute("controls", "none");
+    this.sound.style.display = "none";
+    document.body.appendChild(this.sound);
+    this.play = function(){
+        this.sound.play();
+    }
+    this.stop = function(){
+        this.sound.pause();
+    }
+  }
+
+ //mute sound function
+
+  $('#pauseMusic').on("click",function()
+  {
+   themeMusic.stop();
+  });
+
+  $('#playMusic').on("click",function()
+  {
+    themeMusic.play();
+  });
+
+// Go to Home page
+
+$('#home').on("click",function(){
+
+	location.reload();
+
+});
+
+
+// Change Background images dynamically
+ 	function run(interval, frames) {
+	    var int = 1;
+	    
+	    function func() {
+	        document.body.id = "b"+int;
+	        int++;
+	        if(int === frames) { int = 1; }
+	    }
+	    
+	    var swap = window.setInterval(func, interval);
+    }
 
 // ------- Timer Code	
 var clockRunning = false;
@@ -160,31 +325,28 @@ var clockRunning = false;
 			if (countdownTimer.time >= 0) {
 				$('.timer').html('<h4>' + countdownTimer.time + ' seconds remaining</h4>');
 			}
-			// else {
-			// 	index++;
-			// 	// answerWrong();
-			// 	countdownTimer.reset();
-			// 	if (index < allQuestions.length) {
-			// 		loadQuestion(index);
-			// 	} else {
-			// 		// $("#question").hide();
-			// 		updateScore();
-			// 		// updateRank();
-   //   //                $('#final').fadeIn(500);
-			// 	}
-			// }
+			else {
+				index++;
+				countdownTimer.reset();
+				if (index < allQuestions.length) {
+					loadQuestion(index);
+				} else {
+					updateScore();
+					updateRank();
+                    $('#final').fadeIn(500);
+				}
+			}
 		}
 	};  //------Timer End
 
 	// On click of Start button - starts the trivia game
 
     $('#start-btn').click(function() {   
-        // changeHeading();
         $('#start').fadeOut(500, function() {
         	countdownTimer.start();
         	themeMusic.play();
         	$('#icons').show();
-        	run(1000, 5); //milliseconds, frames
+        	run(1000, 5); //milliseconds, frames - to change background
             newGame();
             findQuestion();
             loadQuestion();
@@ -243,194 +405,6 @@ var clockRunning = false;
             $('#quiz').fadeIn(500);    
         });
     });
-
-var newGame = function() {
-    num = 0;
-    count = 0;
-    score = 0;
-    privious_questions = [];
-};
-var findQuestion = function() {
-    selectQuestion();
-    while (wasAsked()) {
-        selectQuestion();
-    }
-};
-var selectQuestion = function() {
-    var limit = Object.keys(allQuestions).length;
-    num = Math.floor((Math.random() * limit) + 1)
-};
-var wasAsked = function() {
-    var result = false;
-    for (var i=0;i<=privious_questions.length;i++){
-        if (num == privious_questions[i]) {
-            result = true;
-        }
-    }
-    return result;
-};
-var loadQuestion = function() {
-	countdownTimer.start();
-    privious_questions.push(num);    
-    $('#text').html(allQuestions[num]["question"]);
-    $('#option-1').html(allQuestions[num]["options"][1]);
-    $('#option-2').html(allQuestions[num]["options"][2]);
-    $('#option-3').html(allQuestions[num]["options"][3]);
-    $('#option-4').html(allQuestions[num]["options"][4]);
-    updateScore();
-    count++;
-    $('.progress').text(count+"/"+count_limit);
-};
-var correct = function(user_answer) {
-    if (user_answer == allQuestions[num]["answer"]) {
-        return true;
-    } else {
-        return false;
-    }
-};
-var updateScore = function() {
-    $('.score').text(score);
-    // countdownTimer.stop();
-	$('.timer').empty();
-};
-var updateRank = function() {
-    if (score == 10){
-        $('.rank').text('Game Of Thrones Master');
-        $('.rank-msg').text('Prefect score!)');
-    } else if (score >= 7 && score <=  9) {
-        $('.rank').text('GOT Lord');
-        $('.rank-msg').text('You have mad Game of Thrones trivia skillz!');
-    } else if (score >= 4 && score <= 6) {
-        $('.rank').text('Time Traveler');
-        $('.rank-msg').text('You may not be the best, but your not the worst.');
-    } else if (score >= 1 && score <= 3) {
-        $('.rank').text('GOT master- Sidekick');
-        $('.rank-msg').text('Meh. Not a great score, but if you ever ending up traveling through time you probably know enough to not accidently destroy the universe.');
-    } else if (score == 0) {
-        $('.rank').text('Time Dunce');
-        $('.rank-msg').text('Doh! The only "Game Of thrones" you apparently understand is starring at the clock while drool runs down your chin.');
-    }
-};
-
-var newGame = function() {
-    num = 0;
-    count = 0;
-    score = 0;
-    privious_questions = [];
-};
-var findQuestion = function() {
-    selectQuestion();
-    while (wasAsked()) {
-        selectQuestion();
-    }
-};
-var selectQuestion = function() {
-    var limit = Object.keys(allQuestions).length;
-    num = Math.floor((Math.random() * limit) + 1)
-};
-var wasAsked = function() {
-    var result = false;
-    for (var i=0;i<=privious_questions.length;i++){
-        if (num == privious_questions[i]) {
-            result = true;
-        }
-    }
-    return result;
-};
-var loadQuestion = function() {
-    privious_questions.push(num);    
-    countdownTimer.reset();
-    $('#text').html(allQuestions[num]["question"]);
-    $('#option-1').html(allQuestions[num]["options"][1]);
-    $('#option-2').html(allQuestions[num]["options"][2]);
-    $('#option-3').html(allQuestions[num]["options"][3]);
-    $('#option-4').html(allQuestions[num]["options"][4]);
-    updateScore();
-    count++;
-    $('.progress').text(count+"/"+count_limit);
-};
-var correct = function(user_answer) {
-    if (user_answer == allQuestions[num]["answer"]) {
-        return true;
-    } else {
-        return false;
-    }
-};
-var updateScore = function() {
-    $('.score').text(score);
-    countdownTimer.stop();
-	$('.timer').empty();
-};
-var updateRank = function() {
-    if (score == 10){
-        $('.rank').text('Game of throne - Master');
-        $('.rank-msg').text('Prefect score!)');
-    } else if (score >= 7 && score <=  9) {
-        $('.rank').text('Game of throne - Lord');
-        $('.rank-msg').text('You have mad time Game of throne trivia skillz! Time does your bidding, except for all that time you spent watching time travel movies - you can\'t get that back.');
-    } else if (score >= 4 && score <= 6) {
-        $('.rank').text('Time Traveler');
-        $('.rank-msg').text('You may not be the best, but your not the worst.');
-    } else if (score >= 1 && score <= 3) {
-        $('.rank').text('Time Traveling Sidekick');
-        $('.rank-msg').text('Meh. Not a great score, but if you ever ending up traveling through time you probably know enough to not accidently destroy the universe.');
-    } else if (score == 0) {
-        $('.rank').text('Time Dunce');
-        $('.rank-msg').text('Doh! The only "time traveling" you apparently understand is starring at the clock while drool runs down your chin.');
-    }
-};
-
-
-//Background theme
-
-function sound(src) {
-    this.sound = document.createElement("audio");
-    this.sound.src = src;
-    this.sound.setAttribute("preload", "auto");
-    this.sound.setAttribute("controls", "none");
-    this.sound.style.display = "none";
-    document.body.appendChild(this.sound);
-    this.play = function(){
-        this.sound.play();
-    }
-    this.stop = function(){
-        this.sound.pause();
-    }
-  }
-
- //mute sound function
-
-  $('#pauseMusic').on("click",function()
-  {
-   themeMusic.stop();
-  });
-
-  $('#playMusic').on("click",function()
-  {
-    themeMusic.play();
-  });
-
-// Go to Home page
-
-$('#home').on("click",function(){
-
-	location.reload();
-
-});
-
-
-// Change Background images dynamically
- 	function run(interval, frames) {
-	    var int = 1;
-	    
-	    function func() {
-	        document.body.id = "b"+int;
-	        int++;
-	        if(int === frames) { int = 1; }
-	    }
-	    
-	    var swap = window.setInterval(func, interval);
-    }
  
 
 
