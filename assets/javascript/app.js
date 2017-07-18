@@ -125,6 +125,47 @@ var allQuestions = {
 		        "answer-exp": "Answer is 'Dragons'. Daenerys, who feels she has a rightful claim to the Iron Throne, is given three dragon eggs as a wedding gift.  When her husband Kahl Drago dies, she puts his body on a funeral pyre.  Daenerys, who has the supernatural ability to withstand heat, walks into the fire with the eggs and uses the heat to hatch them.  These dragons are the first to come into the world in over a century."
 		},
 };
+
+// ------- Timer Code	
+var clockRunning = false;
+    var index = 0;
+    var counter;
+	var countdownTimer = {
+
+		time : 30,
+		
+		reset: function() {
+			this.time = 30;	
+			$('.timer').html('<h4>' + this.time + ' seconds remaining</h4>');
+		},
+		start: function() {
+		if (!clockRunning) {
+		 counter = setInterval(countdownTimer.count, 1000);	
+		 clockRunning = true;
+		}
+
+		},
+		stop: function() {
+			clearInterval(counter);
+			clockRunning = false;
+		},
+		count: function() {
+				countdownTimer.time--;
+
+			if (countdownTimer.time >= 0) {
+				$('.timer').html('<h4>' + countdownTimer.time + ' seconds remaining</h4>');
+			}
+			else{
+					$('#quiz').fadeOut(500, function() {
+					$('#timeUp').fadeIn(500);
+					countdownTimer.reset();
+				});
+
+			}
+		}
+	};  //------Timer End
+
+
 var newGame = function() {
     num = 0;
     count = 0;
@@ -151,7 +192,7 @@ var wasAsked = function() {
     return result;
 };
 var loadQuestion = function() {
-	countdownTimer.start();
+	countdownTimer.reset();
 	console.log(num);
     privious_questions.push(num);    
     $('#text').html(allQuestions[num]["question"]);
@@ -172,8 +213,7 @@ var correct = function(user_answer) {
 };
 var updateScore = function() {
     $('.score').text(score);
-    // countdownTimer.stop();
-	// $('.timer').empty();
+   
 };
 var updateRank = function() {
     if (score == 10){
@@ -181,64 +221,86 @@ var updateRank = function() {
         $('.rank-msg').text('Prefect score!)');
     } else if (score >= 7 && score <=  9) {
         $('.rank').text('GOT Expert');
-        $('.rank-msg').text('You have mad Game of Thrones trivia skillz!');
+        $('.rank-msg').text('You have mad "Game Of thrones" trivia skillz!');
     } else if (score >= 4 && score <= 6) {
-        $('.rank').text('GOT Beginer');
+        $('.rank').text('GOT Beginner');
         $('.rank-msg').text('You may not be the best, but your not the worst.');
     } else if (score >= 1 && score <= 3) {
         $('.rank').text('GOT Novice');
-        $('.rank-msg').text('Meh. Not a great score, but if you start watching GOT more passionatly you will improve!');
+        $('.rank-msg').text('Meh. Not a great score, but if you start watching "Game Of thrones" more passionatly you will improve!');
     } else if (score == 0) {
         $('.rank').text('GOT Dunce');
-        $('.rank-msg').text('Doh! The only "Game Of thrones" you apparently have no Idea about GOT, No hopes for improvement!');
+        $('.rank-msg').text('Doh! You apparently have no Idea about "Game Of thrones".No hopes for improvement, unless you start watching "Game Of thrones"!');
     }
 };
 
-var newGame = function() {
-    num = 0;
-    count = 0;
-    score = 0;
-    privious_questions = [];
-};
-var findQuestion = function() {
-    selectQuestion();
-    while (wasAsked()) {
-        selectQuestion();
-    }
-};
-var selectQuestion = function() {
-    var limit = Object.keys(allQuestions).length;
-    num = Math.floor((Math.random() * limit) + 1)
-};
-var wasAsked = function() {
-    var result = false;
-    for (var i=0;i<=privious_questions.length;i++){
-        if (num == privious_questions[i]) {
-            result = true;
+
+	// On click of Start button - starts the trivia game
+
+    $('#start-btn').click(function() {   
+        $('#start').fadeOut(500, function() {
+        	countdownTimer.start();
+        	themeMusic.play();
+        	$('#icons').show();
+        	run(1000, 5); //milliseconds, frames - to change background
+            newGame();
+            findQuestion();
+            loadQuestion();
+            $('#quiz').fadeIn(500);
+        });
+    });
+
+    // invokes On click of 'Submit Answer' button 
+    $('#answer-btn').click(function() {
+        var user_answer = $('input:radio[name=ans]:checked').val();
+        if (!user_answer) {
+            alert('Please make a selection!');
+        } else {
+            if (correct(user_answer)) {
+                $('#quiz').fadeOut(500, function() {
+                    score++;
+                    updateScore();
+                    $('.answer-exp').text( allQuestions[num]["answer-exp"]);
+                    $('#correct').fadeIn(500);    
+                });
+            } else {
+                $('#quiz').fadeOut(500, function() {
+                    $('.answer-exp').text(allQuestions[num]["answer-exp"]);
+                    $('#wrong').fadeIn(500);
+                });
+            }
         }
-    }
-    return result;
-};
-var loadQuestion = function() {
-    privious_questions.push(num);    
-    countdownTimer.reset();
-    $('#text').html(allQuestions[num]["question"]);
-    $('#option-1').html(allQuestions[num]["options"][1]);
-    $('#option-2').html(allQuestions[num]["options"][2]);
-    $('#option-3').html(allQuestions[num]["options"][3]);
-    $('#option-4').html(allQuestions[num]["options"][4]);
-    updateScore();
-    count++;
-    $('.progress').text(count+"/"+count_limit);
-};
-var correct = function(user_answer) {
-    if (user_answer == allQuestions[num]["answer"]) {
-        return true;
-    } else {
-        return false;
-    }
-};
+    });
 
+    $('.cont-btn').click(function() { 
+    $('#timeUp').fadeOut(500);
+        $('#correct').fadeOut(500, function() {
+            $('#wrong').fadeOut(500, function() {
+                if (count >= count_limit) {
+                	
+                    updateScore();
+                    updateRank();
+                    $('#final').fadeIn(500);
+                }else {
+                	
+                    findQuestion();
+                    loadQuestion();
+                    $('form input').prop('checked', false);
+                    $('#quiz').fadeIn(500);
+                }
+            });
+        });
+    });
+
+    $('#start-over').click(function() {       
+        $('#final').fadeOut(500, function() {
+            newGame();
+            findQuestion();
+            loadQuestion();
+            $('form input').prop('checked', false);
+            $('#quiz').fadeIn(500);    
+        });
+    });
 
 
 //Background theme
@@ -292,119 +354,9 @@ $('#home').on("click",function(){
 	    var swap = window.setInterval(func, interval);
     }
 
-// ------- Timer Code	
-var clockRunning = false;
-    var index = 0;
-    var counter;
-	var countdownTimer = {
 
-		time : 30,
-		reset: function() {
-			console.log('in countdownTimer.reset');
-			this.time = 30;
-			$('.timer').html('<h4>' + this.time + ' seconds remaining</h4>');
-		},
-		start: function() {
-			console.log('in countdownTimer.start');
-		  if (!clockRunning) {
-		 counter = setInterval(countdownTimer.count, 1000);	
-		 clockRunning = true;
-		 console.log(counter);
-		}
 
-		},
-		stop: function() {
-			console.log('in countdownTimer.stop');
-			clearInterval(counter);
-			clockRunning = false;
-		},
-		count: function() {
-				countdownTimer.time--;
-				console.log('in countdownTimer.count');
-				console.log(countdownTimer.time);
-			if (countdownTimer.time >= 0) {
-				$('.timer').html('<h4>' + countdownTimer.time + ' seconds remaining</h4>');
-			}
-			else {
-				index++;
-				countdownTimer.reset();
-				if (index < allQuestions.length) {
-					loadQuestion(index);
-				} else {
-					updateScore();
-					updateRank();
-                    $('#final').fadeIn(500);
-				}
-			}
-		}
-	};  //------Timer End
 
-	// On click of Start button - starts the trivia game
-
-    $('#start-btn').click(function() {   
-        $('#start').fadeOut(500, function() {
-        	countdownTimer.start();
-        	themeMusic.play();
-        	$('#icons').show();
-        	run(1000, 5); //milliseconds, frames - to change background
-            newGame();
-            findQuestion();
-            loadQuestion();
-            $('#quiz').fadeIn(500);
-        });
-    });
-
-    // invokes On click of 'Submit Answer' button 
-    $('#answer-btn').click(function() {
-        var user_answer = $('input:radio[name=ans]:checked').val();
-        if (!user_answer) {
-            alert('Please make a selection!');
-        } else {
-            if (correct(user_answer)) {
-                $('#quiz').fadeOut(500, function() {
-                    score++;
-                    updateScore();
-                    $('.answer-exp').text( allQuestions[num]["answer-exp"]);
-                    $('#correct').fadeIn(500);    
-                });
-            } else {
-                $('#quiz').fadeOut(500, function() {
-                    $('.answer-exp').text(allQuestions[num]["answer-exp"]);
-                    $('#wrong').fadeIn(500);
-                });
-            }
-        }
-    });
-
-    $('.cont-btn').click(function() { 
-    
-        $('#correct').fadeOut(500, function() {
-            $('#wrong').fadeOut(500, function() {
-                if (count >= count_limit) {
-                    updateScore();
-                    updateRank();
-                    $('#final').fadeIn(500);
-                } else {
-                    findQuestion();
-                    loadQuestion();
-                    $('form input').prop('checked', false);
-                    $('#quiz').fadeIn(500);
-                }
-            });
-        });
-    });
-
-    $('#start-over').click(function() {       
-        $('#final').fadeOut(500, function() {
-        	
-            newGame();
-            findQuestion();
-            
-            loadQuestion();
-            $('form input').prop('checked', false);
-            $('#quiz').fadeIn(500);    
-        });
-    });
  
 
 
