@@ -21,7 +21,7 @@ var allQuestions = {
             4: "Northeros",
         },
         "answer": 1,
-        "answer-exp": "Almost all of the continent, with the exception of the Wall and lands beyond, is under the rule of the Seven Kingdoms.  Westeros contains a variety of terrain including forests, mountains and deserts."
+        "answer-exp": "Answer is 'Wsteros'. Almost all of the continent, with the exception of the Wall and lands beyond, is under the rule of the Seven Kingdoms.  Westeros contains a variety of terrain including forests, mountains and deserts."
     },
 
 	2: {
@@ -33,7 +33,7 @@ var allQuestions = {
 	            4: "Cersei Lannister Baratheon",
 	        },
 	        "answer": 3,
-	        "answer-exp": "Stannis' father was Steffon Baratheon, a brother of King Robert Baratheon, both of whom died.  Robert's widow Cersei placed her fifteen year-old son Joffrey on the throne, but Joffrey was not Robert's biological heir, a fact that Cersei strove to keep secret.  Since King Robert had no true heirs, Stannis should be the rightful heir to the Iron Throne.  Stannis said, 'The Iron Throne is mine by right. All those that deny that are my foes.'"
+	        "answer-exp": "Answer is 'Stanis Baratheon'.Stannis' father was Steffon Baratheon, a brother of King Robert Baratheon, both of whom died.  Robert's widow Cersei placed her fifteen year-old son Joffrey on the throne, but Joffrey was not Robert's biological heir, a fact that Cersei strove to keep secret.  Since King Robert had no true heirs, Stannis should be the rightful heir to the Iron Throne.  Stannis said, 'The Iron Throne is mine by right. All those that deny that are my foes.'"
 	    },
 	3: {
 		        "question": "In 2011, which actor who plays Tyrion Lannister, won the Golden Globe award for Best Performance by an Actor in a Supporting Role in a Series?",
@@ -44,18 +44,18 @@ var allQuestions = {
 		            4: "Aidan Gillen",
 		        },
 		        "answer": 2,
-		        "answer-exp": "Dinklage may be small in stature, but he wields power and commands respect in his role of Tyrion Lannister, the Hand of the King.  However, Tyrion is greatly disliked by his father Tywin Lannister because his wife died giving birth to the dwarf-sized son. His sister Cersei Lannister Baratheon despises him for the same reason.  Tyrion must bear being called names such as 'The Imp' and 'Halfman'."
+		        "answer-exp": "Answer is 'Peter Dinklage'. Dinklage may be small in stature, but he wields power and commands respect in his role of Tyrion Lannister, the Hand of the King.  However, Tyrion is greatly disliked by his father Tywin Lannister because his wife died giving birth to the dwarf-sized son. His sister Cersei Lannister Baratheon despises him for the same reason.  Tyrion must bear being called names such as 'The Imp' and 'Halfman'."
 		},
 	4: {
 		        "question": "Aside from being Master of Coin and a member of the King's Small Council, the character of Peter 'Littlefinger' Baelish from King's Landing also runs what kind of business?",
 		        "options": {
-		            1: "gold",
-		            2: "ship building",
-		            3: "brothel",
-		            4: "slave trade",
+		            1: "Gold",
+		            2: "Ship building",
+		            3: "Brothel",
+		            4: "Slave trade",
 		        },
 		        "answer": 3,
-		        "answer-exp": "Littlefinger spies on patrons of his brothel in order to gain useful information against possible political rivals.  As Master of the Coin, he oversees the treasury.  He was given this position during the reign of King Robert Baratheon and continued in the position when King Joffrey Baratheon inherited the throne after Robert's death."
+		        "answer-exp": "Answer is 'Brothel'. Littlefinger spies on patrons of his brothel in order to gain useful information against possible political rivals.  As Master of the Coin, he oversees the treasury.  He was given this position during the reign of King Robert Baratheon and continued in the position when King Joffrey Baratheon inherited the throne after Robert's death."
 		},
 	5: {
 		        "question": "What is the name of Arya Stark's sword?",
@@ -66,19 +66,19 @@ var allQuestions = {
 		            4: "Slash",
 		        },
 		        "answer": 3,
-		        "answer-exp": "Arya Stark is the daughter of Lord Eddard and Lady Catelyn Stark.  The sword is a gift from her half-brother Jon Snow.  She is trained in sword fighting, and when her father tells her that a little lady shouldn't play with swords, she replies, 'I wasn't playing.  And I don't want to be a lady.'"
+		        "answer-exp": "Answer is 'Needle'. Arya Stark is the daughter of Lord Eddard and Lady Catelyn Stark.  The sword is a gift from her half-brother Jon Snow.  She is trained in sword fighting, and when her father tells her that a little lady shouldn't play with swords, she replies, 'I wasn't playing.  And I don't want to be a lady.'"
 		},
 
 	6: {
 		        "question": "By what name do the Seven Kingdoms refer to the Free Folk who live in north beyond the Wall?",
 		        "options": {
-		            1: "savages",
-		            2: "wildlings",
-		            3: "barbarians",
-		            4: "hostiles",
+		            1: "Savages",
+		            2: "Wildlings",
+		            3: "Barbarians",
+		            4: "Hostiles",
 		        },
 		        "answer": 2,
-		        "answer-exp": "The Free Folk live on the continent of Westeros, but beyond the realm of the Seven Kingdoms.  As their name suggests, they consider themselves free from political authority and claims to the land."
+		        "answer-exp": "Answer is 'Wildlings'. The Free Folk live on the continent of Westeros, but beyond the realm of the Seven Kingdoms.  As their name suggests, they consider themselves free from political authority and claims to the land."
 		},
 	7: {
 		        "question": "Which of the following is not a position on King Joffrey Baratheon's small council?",
@@ -89,7 +89,7 @@ var allQuestions = {
 		            4: "Master of Ships",
 		        },
 		        "answer": 3,
-		        "answer-exp": "The small council is a group of advisors to the king, similar to a cabinet.  The members are appointed by the king.  They can make suggestions, but only the king makes them into laws."
+		        "answer-exp": "Answer is 'Master of Seas'. The small council is a group of advisors to the king, similar to a cabinet.  The members are appointed by the king.  They can make suggestions, but only the king makes them into laws."
 		},
 	8: {
 		        "question": "Which position on the king's small council is his closest adviser and has the power to make decisions in the king's absence?",
@@ -100,7 +100,7 @@ var allQuestions = {
 		            4: "Hand of the King",
 		        },
 		        "answer": 4,
-		        "answer-exp": "In the first two seasons, there are three characters to hold this position.  The first is Lord Jon Arryn who dies in the first episode.  King Robert then appoints Lord Eddard Stark.  Stark is later executed as ordered by King Joffrey.  Joffrey chooses his grandfather Lord Tywin Lannister, but he is too involved in fighting the Starks and sends his dwarf-son Tyrion to act in his place."
+		        "answer-exp": "Answer is 'Hand of the King'. In the first two seasons, there are three characters to hold this position.  The first is Lord Jon Arryn who dies in the first episode.  King Robert then appoints Lord Eddard Stark.  Stark is later executed as ordered by King Joffrey.  Joffrey chooses his grandfather Lord Tywin Lannister, but he is too involved in fighting the Starks and sends his dwarf-son Tyrion to act in his place."
 		},
 	9: {
 		        "question": "For what reason was Hand of the King Eddard (Ned) Stark executed?",
@@ -111,18 +111,18 @@ var allQuestions = {
 		            4: "Responsibility for the death of King Robert",
 		        },
 		        "answer": 3,
-		        "answer-exp": "Through a series of events, Ned Stark discovers that Joffrey and his siblings are not the offspring of Robert Baratheon.  Their true father is their uncle Jamie Lannister meaning that Joffrey is not the rightful heir to the Iron Throne. In his attempt to use this information, Ned is betrayed and is executed for treason."
+		        "answer-exp": "Answer is 'Challenging Joffrey's right to be king'. Through a series of events, Ned Stark discovers that Joffrey and his siblings are not the offspring of Robert Baratheon.  Their true father is their uncle Jamie Lannister meaning that Joffrey is not the rightful heir to the Iron Throne. In his attempt to use this information, Ned is betrayed and is executed for treason."
 		},
 	10: {
 		        "question": "Daenerys Targaryen has three children. These 'children' are actually what?",
 		        "options": {
-		            1: "dragons",
-		            2: "wolves",
-		            3: "unicorns",
-		            4: "lions",
+		            1: "Dragons",
+		            2: "Wolves",
+		            3: "Unicorns",
+		            4: "Lions",
 		        },
 		        "answer": 1,
-		        "answer-exp": "dragonsDaenerys, who feels she has a rightful claim to the Iron Throne, is given three dragon eggs as a wedding gift.  When her husband Kahl Drago dies, she puts his body on a funeral pyre.  Daenerys, who has the supernatural ability to withstand heat, walks into the fire with the eggs and uses the heat to hatch them.  These dragons are the first to come into the world in over a century."
+		        "answer-exp": "Answer is 'Dragons'. Daenerys, who feels she has a rightful claim to the Iron Throne, is given three dragon eggs as a wedding gift.  When her husband Kahl Drago dies, she puts his body on a funeral pyre.  Daenerys, who has the supernatural ability to withstand heat, walks into the fire with the eggs and uses the heat to hatch them.  These dragons are the first to come into the world in over a century."
 		},
 };
 
@@ -165,6 +165,8 @@ var allQuestions = {
     $('#start-btn').click(function() {   
         // changeHeading();
         $('#start').fadeOut(500, function() {
+        	themeMusic.play();
+        	$('#icons').show();
         	run(1000, 5); //milliseconds, frames
             newGame();
             findQuestion();
@@ -371,20 +373,28 @@ function sound(src) {
     }
   }
 
-  //mute sound function
+ //mute sound function
 
-  // stopMusic.onclick =function()
-  // {
-  //   mySound.stop();
-  // } 
+  $('#pauseMusic').on("click",function()
+  {
+   themeMusic.stop();
+  });
 
-  $('#start-btn').on("click",function()
+  $('#playMusic').on("click",function()
   {
     themeMusic.play();
   });
 
+// Go to Home page
+
+$('#home').on("click",function(){
+
+	location.reload();
+
+});
 
 
+// Change Background images dynamically
  	function run(interval, frames) {
 	    var int = 1;
 	    
@@ -397,6 +407,7 @@ function sound(src) {
 	    var swap = window.setInterval(func, interval);
     }
  
+
 
 
 }); // Document.ready() End

@@ -2,10 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
+    <!-- The viewport varies with the device, and will be smaller on a mobile phone than on a computer screen. -->
+	  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+	<!-- Link to your external CSS --> 
     <link rel="stylesheet" type="text/css" href="assets/CSS/style.css">
     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans:100,200,300,400,500,600,700,800">
     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300">
-    <title>The Trivia Quiz</title>
+    <title>The Game of Thrones Trivia Quiz</title>
 </head>
 <body id="background">
 <header>
@@ -16,15 +21,20 @@
 <main id="main" role="main">
 
     <div class="content"> 
+    		<div id="icons" class="hidden">
+				<i class="material-icons" id="home">home</i>
+				<i class="material-icons" id="playMusic">play_circle_outline</i> 
+				<i class="material-icons" id="pauseMusic">pause_circle_outline</i>
+			</div>
 
         <section id="quiz" class="hidden">
-            <div id="stats" class="clearfix">
+         	<div id="stats" class="clearfix">
                 <div id="stats-score">SCORE: <span class="score">0</span></div>
                 <div class="timer"></div>
                 <div id="stats-progress">QUESTION: <span class="progress">0/0</span></div>
             </div>
+
             <div id="question">
-                <div id="icon"></div>
                 <p id="text">[question text goes here]</p>
                 <form>
                 <div><input type="radio" name="ans" value="1"> <span id="option-1">[option one]</span> </div>
