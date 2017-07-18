@@ -128,43 +128,60 @@ var allQuestions = {
 
 
 // ------- Timer Code	
+var clockRunning = false;
     var index = 0;
     var counter;
 	var countdownTimer = {
+
 		time : 30,
 		reset: function() {
+			console.log('in countdownTimer.reset');
 			this.time = 30;
 			$('.timer').html('<h4>' + this.time + ' seconds remaining</h4>');
 		},
 		start: function() {
-		var counter = setInterval(countdownTimer.count, 1000);	
+			console.log('in countdownTimer.start');
+		  if (!clockRunning) {
+		 counter = setInterval(countdownTimer.count, 1000);	
+		 clockRunning = true;
+		 console.log(counter);
+		}
+
 		},
 		stop: function() {
+			console.log('in countdownTimer.stop');
 			clearInterval(counter);
+			clockRunning = false;
 		},
 		count: function() {
 				countdownTimer.time--;
+				console.log('in countdownTimer.count');
 				console.log(countdownTimer.time);
 			if (countdownTimer.time >= 0) {
 				$('.timer').html('<h4>' + countdownTimer.time + ' seconds remaining</h4>');
 			}
-			else {
-				index++;
-				// answerWrong();
-				countdownTimer.reset();
-				if (index < allQuestions.length) {
-					loadQuestion(index);
-				} else {
-					$("#question").hide();
-					updateScore();
-				}
-			}
+			// else {
+			// 	index++;
+			// 	// answerWrong();
+			// 	countdownTimer.reset();
+			// 	if (index < allQuestions.length) {
+			// 		loadQuestion(index);
+			// 	} else {
+			// 		// $("#question").hide();
+			// 		updateScore();
+			// 		// updateRank();
+   //   //                $('#final').fadeIn(500);
+			// 	}
+			// }
 		}
 	};  //------Timer End
+
+	// On click of Start button - starts the trivia game
 
     $('#start-btn').click(function() {   
         // changeHeading();
         $('#start').fadeOut(500, function() {
+        	countdownTimer.start();
         	themeMusic.play();
         	$('#icons').show();
         	run(1000, 5); //milliseconds, frames
@@ -174,6 +191,8 @@ var allQuestions = {
             $('#quiz').fadeIn(500);
         });
     });
+
+    // invokes On click of 'Submit Answer' button 
     $('#answer-btn').click(function() {
         var user_answer = $('input:radio[name=ans]:checked').val();
         if (!user_answer) {
@@ -194,9 +213,9 @@ var allQuestions = {
             }
         }
     });
+
     $('.cont-btn').click(function() { 
     
-
         $('#correct').fadeOut(500, function() {
             $('#wrong').fadeOut(500, function() {
                 if (count >= count_limit) {
@@ -212,10 +231,13 @@ var allQuestions = {
             });
         });
     });
+
     $('#start-over').click(function() {       
         $('#final').fadeOut(500, function() {
+        	
             newGame();
             findQuestion();
+            
             loadQuestion();
             $('form input').prop('checked', false);
             $('#quiz').fadeIn(500);    
@@ -248,6 +270,7 @@ var wasAsked = function() {
     return result;
 };
 var loadQuestion = function() {
+	countdownTimer.start();
     privious_questions.push(num);    
     $('#text').html(allQuestions[num]["question"]);
     $('#option-1').html(allQuestions[num]["options"][1]);
@@ -267,6 +290,8 @@ var correct = function(user_answer) {
 };
 var updateScore = function() {
     $('.score').text(score);
+    // countdownTimer.stop();
+	$('.timer').empty();
 };
 var updateRank = function() {
     if (score == 10){
