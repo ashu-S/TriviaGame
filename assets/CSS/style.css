@@ -52,15 +52,20 @@ h1 {
 
 #start {
   width: 100%;
-  border-top: 1px dashed #fffadd;
-  border-bottom: 1px dashed #fffadd;
+  border-top: 1px solid #fffadd;
+  border-bottom: 1px solid #fffadd;
   font-size: 1.6rem; }
   #start #instruct {
     background-color: rgba(52, 81, 133, 0.6);
+    border-style: solid; 
+    border-color: black;
+    border-width: 1px;
     float: left;
+    font-weight: normal;
     width: 56%;
     margin: 1.25%; }
   #start #instruct p {
+
     padding: 1rem; }
   #start #btn-area {
     float: right;
@@ -93,6 +98,7 @@ button {
   border-top: 1px solid #3366cc;
   border-right: 1px solid #3366cc;
   border-left: 1px solid #3366cc;
+  border-bottom:1px solid #3366cc;
   padding: 10px;
   font-size: 1.2rem; }
 
@@ -100,18 +106,27 @@ button {
     float: left;
     letter-spacing: 0.2rem; }
 
-  #stats #stats-progress #timer{
+  #stats #stats-progress{
     float: right;
     letter-spacing: 0.2rem; }
 
-  #stats .score, #stats .progress, #stats .timer {
+  #stats .score, #stats .progress, {
     color: #94A3D1; }
+
+#timer{
+    /*float: right;*/
+    background-color: black;
+    text-align: center;
+    letter-spacing: 0.2rem;
+    font-size: 2rem;
+    color: white; }
 
 #question {
   background-color: rgba(0, 0, 71, 0.5);
   border: 1px solid #3366cc;
   padding: 3% 10% 3% 10%;
   font-size: 2rem; }
+
   #question strong {
     color: #94a3d1;
     font-weight: normal; }
@@ -146,7 +161,7 @@ button {
     font-size: 3rem;
     text-shadow: 2px 2px 4px #000000;
     letter-spacing: 0.4rem;
-     }
+    font-weight: normal;}
 
 #correct {
   color: #66cc99;

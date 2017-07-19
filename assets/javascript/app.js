@@ -136,7 +136,7 @@ var clockRunning = false;
 		
 		reset: function() {
 			this.time = 30;	
-			$('.timer').html('<h4>' + this.time + ' seconds remaining</h4>');
+			$('.timer').text('00:' + this.time);
 		},
 		start: function() {
 		if (!clockRunning) {
@@ -153,7 +153,15 @@ var clockRunning = false;
 				countdownTimer.time--;
 
 			if (countdownTimer.time >= 0) {
-				$('.timer').html('<h4>' + countdownTimer.time + ' seconds remaining</h4>');
+
+                if (countdownTimer.time <= 9){
+                    $('.timer').html('00:'+'0'+ countdownTimer.time);
+                }
+                else{
+                    $('.timer').html('00:'+countdownTimer.time);
+                }
+
+				
 			}
 			else{
 					$('#quiz').fadeOut(500, function() {
@@ -193,6 +201,7 @@ var wasAsked = function() {
 };
 var loadQuestion = function() {
 	countdownTimer.reset();
+    countdownTimer.start();
 	console.log(num);
     privious_questions.push(num);    
     $('#text').html(allQuestions[num]["question"]);
@@ -252,6 +261,8 @@ var updateRank = function() {
 
     // invokes On click of 'Submit Answer' button 
     $('#answer-btn').click(function() {
+    countdownTimer.stop();    
+    $('#timeUp').fadeOut(500);
         var user_answer = $('input:radio[name=ans]:checked').val();
         if (!user_answer) {
             alert('Please make a selection!');
@@ -272,7 +283,8 @@ var updateRank = function() {
         }
     });
 
-    $('.cont-btn').click(function() { 
+    $('.cont-btn').click(function() {
+    countdownTimer.stop();    
     $('#timeUp').fadeOut(500);
         $('#correct').fadeOut(500, function() {
             $('#wrong').fadeOut(500, function() {
