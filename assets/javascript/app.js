@@ -217,19 +217,19 @@ var updateScore = function() {
 };
 var updateRank = function() {
     if (score == 10){
-        $('.rank').text('Game Of Thrones Master');
-        $('.rank-msg').text('Prefect score!)');
+        $('.rank').text('Game Of Thrones - Master');
+        $('.rank-msg').text('Prefect score!');
     } else if (score >= 7 && score <=  9) {
-        $('.rank').text('GOT Expert');
+        $('.rank').text('Game Of Thrones - Expert');
         $('.rank-msg').text('You have mad "Game Of thrones" trivia skillz!');
     } else if (score >= 4 && score <= 6) {
-        $('.rank').text('GOT Beginner');
+        $('.rank').text('Game Of Thrones - Beginner');
         $('.rank-msg').text('You may not be the best, but your not the worst.');
     } else if (score >= 1 && score <= 3) {
-        $('.rank').text('GOT Novice');
+        $('.rank').text('Game Of Thrones - Novice');
         $('.rank-msg').text('Meh. Not a great score, but if you start watching "Game Of thrones" more passionatly you will improve!');
     } else if (score == 0) {
-        $('.rank').text('GOT Dunce');
+        $('.rank').text('Game Of Thrones - Dunce');
         $('.rank-msg').text('Doh! You apparently have no Idea about "Game Of thrones".No hopes for improvement, unless you start watching "Game Of thrones"!');
     }
 };
@@ -277,8 +277,7 @@ var updateRank = function() {
         $('#correct').fadeOut(500, function() {
             $('#wrong').fadeOut(500, function() {
                 if (count >= count_limit) {
-                	
-                    updateScore();
+             	    updateScore();
                     updateRank();
                     $('#final').fadeIn(500);
                 }else {
