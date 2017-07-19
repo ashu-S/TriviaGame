@@ -1,17 +1,22 @@
+/*---------------------------------------------------------------*/
+/* Custom styles for a Trivia game project created in Javascript */
+/* Author: Ashwini                                               */
+/*---------------------------------------------------------------*/
 
+
+
+/* main div to hold the child divs together  */
+main {
+  margin: 2rem 0; }
+  
 html {
   color: #fffadd;
   font-size: 62.5%;
   font-family: 'Open Sans', sans-serif;
   }
-
-/*body {
-  font-size: 10px;
-  font-size: 1rem;*/
-  
- #background{background-image: url("../images/Bg-3.jpg"); }
-
-
+ 
+/* For dynamic background*/
+#background{background-image: url("../images/Bg-3.jpg"); }
 #b1 { background: url("../images/Bg-1.jpg"); }
 #b2 { background: url("../images/Bg-2.jpg"); }
 #b3 { background: url("../images/Bg-3.jpg"); }

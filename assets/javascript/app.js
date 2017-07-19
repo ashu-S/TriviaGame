@@ -1,15 +1,23 @@
+//======================================================//
+//This is a Trivia game project created in Javascript   //
+//Theme for the Trivia - Game Of Throne                 //
+// Author: Ashwini                                      //
+//======================================================//
+
 $(document).ready(function(){
 
 // Global Variables
 var num=0;
-var count=0; //Questions answered
-var count_limit=10; //Total questions
-var score=0;
-var previous_questions=[];
+var count=0;               //Questions answered
+var count_limit=10;        //Total questions
+var score=0;               //Store the score
+var previous_questions=[]; //Reference to the previous question
 
+// Background music for the quiz.
 var themeMusic = new sound("../TriviaGame/assets/music/GOTtheme.mp3");
 
-//Object Questions will hold all the details related to the questions like Multiple choice options, correct answer, answer explanation etc.
+//Object Questions will hold all the details related to the questions 
+//like Multiple choice options, correct answer, answer explanation etc.
 
 var allQuestions = {
     1: {
@@ -127,12 +135,12 @@ var allQuestions = {
 };
 
 // ------- Timer Code	
-var clockRunning = false;
+    var clockRunning = false;
     var index = 0;
     var counter;
 	var countdownTimer = {
 
-		time : 30,
+		time : 30,  // 30 seconds' Timer for each question
 		
 		reset: function() {
 			this.time = 30;	
@@ -153,6 +161,7 @@ var clockRunning = false;
 				countdownTimer.time--;
 
 			if (countdownTimer.time >= 0) {
+// Show the timer running down
 
                 if (countdownTimer.time <= 9){
                     $('.timer').html('00:'+'0'+ countdownTimer.time);
@@ -160,36 +169,41 @@ var clockRunning = false;
                 else{
                     $('.timer').html('00:'+countdownTimer.time);
                 }
-
-				
-			}
-			else{
+        }
+		else{
+// Show the Time Up message!                
 					$('#quiz').fadeOut(500, function() {
 					$('#timeUp').fadeIn(500);
 					countdownTimer.reset();
 				});
-
 			}
 		}
 	};  //------Timer End
 
-
+// Set up for the new game
 var newGame = function() {
     num = 0;
     count = 0;
     score = 0;
     privious_questions = [];
 };
+
+//To find the specific questions to select
 var findQuestion = function() {
     selectQuestion();
     while (wasAsked()) {
         selectQuestion();
     }
 };
+
+//Select the random question from array of Questions
 var selectQuestion = function() {
     var limit = Object.keys(allQuestions).length;
     num = Math.floor((Math.random() * limit) + 1)
 };
+
+// while randomly selecting the new question 
+// Check and confirm if the previous question was not the same as to the new one
 var wasAsked = function() {
     var result = false;
     for (var i=0;i<=privious_questions.length;i++){
@@ -199,6 +213,8 @@ var wasAsked = function() {
     }
     return result;
 };
+
+//To load the selected question into the Quiz area
 var loadQuestion = function() {
 	countdownTimer.reset();
     countdownTimer.start();
@@ -213,6 +229,8 @@ var loadQuestion = function() {
     count++;
     $('.progress').text(count+"/"+count_limit);
 };
+
+//To check if the user selected answer is correct or not
 var correct = function(user_answer) {
     if (user_answer == allQuestions[num]["answer"]) {
         return true;
@@ -220,10 +238,13 @@ var correct = function(user_answer) {
         return false;
     }
 };
+
+//To update the score 
 var updateScore = function() {
     $('.score').text(score);
-   
 };
+
+//To update the Rank of the player depending on their score.
 var updateRank = function() {
     if (score == 10){
         $('.rank').text('Game Of Thrones - Master');
@@ -244,8 +265,7 @@ var updateRank = function() {
 };
 
 
-	// On click of Start button - starts the trivia game
-
+//Invokes On click of Start button - starts the trivia game
     $('#start-btn').click(function() {   
         $('#start').fadeOut(500, function() {
         	countdownTimer.start();
@@ -259,7 +279,7 @@ var updateRank = function() {
         });
     });
 
-    // invokes On click of 'Submit Answer' button 
+//invokes On click of 'Submit Answer' button 
     $('#answer-btn').click(function() {
     countdownTimer.stop();    
     $('#timeUp').fadeOut(500);
@@ -283,6 +303,8 @@ var updateRank = function() {
         }
     });
 
+//invokes on click of 'Continue' button 
+//To Show the Final score or the next question 
     $('.cont-btn').click(function() {
     countdownTimer.stop();    
     $('#timeUp').fadeOut(500);
@@ -303,6 +325,8 @@ var updateRank = function() {
         });
     });
 
+//invokes on click of 'Try Again' button
+//To start over the game again
     $('#start-over').click(function() {       
         $('#final').fadeOut(500, function() {
             newGame();
@@ -314,7 +338,7 @@ var updateRank = function() {
     });
 
 
-//Background theme
+//To play the Background theme for Quiz
 
 function sound(src) {
     this.sound = document.createElement("audio");
@@ -331,19 +355,19 @@ function sound(src) {
     }
   }
 
- //mute sound function
+//invokes on click of 'play' icon To play the background music
+ $('#playMusic').on("click",function()
+  {
+    themeMusic.play();
+  });
 
+//invokes on click of 'Pause' icon To pause the background music
   $('#pauseMusic').on("click",function()
   {
    themeMusic.stop();
   });
 
-  $('#playMusic').on("click",function()
-  {
-    themeMusic.play();
-  });
-
-// Go to Home page
+//invokes on click of 'Home' icon to Go to Home page
 
 $('#home').on("click",function(){
 
@@ -351,25 +375,16 @@ $('#home').on("click",function(){
 
 });
 
-
 // Change Background images dynamically
- 	function run(interval, frames) {
-	    var int = 1;
-	    
-	    function func() {
-	        document.body.id = "b"+int;
-	        int++;
-	        if(int === frames) { int = 1; }
-	    }
-	    
-	    var swap = window.setInterval(func, interval);
+function run(interval, frames) {
+    var int = 1;
+    function func() {
+        document.body.id = "b"+int;
+        int++;
+        if(int === frames) { int = 1; }
     }
+    var swap = window.setInterval(func, interval);
+}
 
 
-
-
- 
-
-
-
-}); // Document.ready() End
+}); // Document.ready() End ---- End of JS-----------
