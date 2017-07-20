@@ -271,7 +271,7 @@ var updateRank = function() {
         	countdownTimer.start();
         	themeMusic.play();
         	$('#icons').show();
-        	run(6000, 5); //milliseconds, frames - to change background
+        	run(10000, 5); //milliseconds, frames - to change background
             newGame();
             findQuestion();
             loadQuestion();
